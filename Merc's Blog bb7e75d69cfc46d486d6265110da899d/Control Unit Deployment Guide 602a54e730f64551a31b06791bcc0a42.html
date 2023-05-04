@@ -1,0 +1,718 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Control Unit Deployment Guide</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-translucentGray { background-color: rgba(255, 255, 255, 0.0375); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="602a54e7-30f6-4551-a31b-06791bcc0a42" class="page sans"><header><h1 class="page-title"><strong>Control Unit Deployment Guide</strong></h1></header><div class="page-body"><p id="2241f32f-3aab-46d5-9ce1-e2d6961f4645" class="">
+</p><p id="6ad2f24f-fefc-4fab-9400-a6a2985b0887" class="">This guide is designed to run using at Northumbria University’s eduroam network, if you can have a LAN connection to your Pi and don’t require remote access to the printer setup, you can start at <strong>Step 3. Docker Installation</strong>.</p><p id="8267fe0f-7811-42f7-8815-fbe78a8c4ec3" class="">
+</p><h1 id="4b423015-209c-4fb9-bba7-efa309878ca2" class=""><strong>Step 1. Setup the Raspberry Pi with Internet access.</strong></h1><p id="d64535a6-c734-4c6b-a752-4893e6443f6c" class="">Install the latest Raspberry Pi OS (previously called <em><strong>Raspbian</strong></em>) with desktop environment.</p><p id="9173bc1d-5135-44a2-b113-7fb0f278fa47" class="">Using the latest Eduroam CAT tool to config your University Wi-Fi Access. (In most cases, change the network setting to NetworkManager before run the CAT tool is advised)</p><pre id="a0c3d0ba-4cb5-4063-a9db-ccdae986d3af" class="code"><code>#Change the Network Config to NetworkManager
+sudo raspi-confi
+# Advanced Options &gt; Network Config &gt; NetworkManager &gt; Reboot
+
+#Setup Eduroam at Northumbria University using CAT 
+#NU&#x27;s CAT won&#x27;t work under root privilege. 
+sudo python /boot/eduroam-deploy.py</code></pre><p id="cf1cbaa9-2a62-422c-9177-a521d134c27a" class="">
+</p><h1 id="239e2176-7198-458a-9267-2bdcfab4ce1d" class="">Step 2. Setup Remote Access</h1><p id="ca9b10db-c226-4d17-901f-453b5b244c29" class="">We setup software-defined mesh virtual private network for easy access, in this deployment we using Tailscale.</p><pre id="7322bb9c-0904-458f-b715-5bf91c638ca0" class="code"><code>curl -fsSL https://tailscale.com/install.sh | sh</code></pre><p id="0e3ef147-5c30-4701-9ed5-d99dc36df95d" class="">This step is optional, it provide easy SSH access to the pi via Internet.</p><h1 id="b3c2d00b-05ad-4965-b252-0b43b20d5277" class=""><strong>Step 3. Docker Installation</strong></h1><p id="6d7f45c9-aa10-4c73-ad94-0e65828ab3b1" class="">Before install Docker, it&#x27;s advisable to update the device’s software packages, in this example it was running with root privilege, otherwise you might need to add sudo before each command.</p><pre id="00036acb-47b5-41b1-af7b-87841639d525" class="code"><code>apt-get update
+apt-get upgrade</code></pre><p id="0fd63f9b-8c65-458e-97e2-084cc2e976e0" class="">After update, Install prerequisites</p><pre id="5fd1274c-083d-492f-bd47-f28d33e5777f" class="code"><code>apt-get install \
+apt-transport-https \
+ca-certificates \
+curl \
+gnupg2 \
+software-properties-common</code></pre><p id="09309719-5868-411d-9c73-4ba3f2e38e27" class="">After this, reboot the device before continue.</p><pre id="381981d4-47f0-43e7-9399-63aad3b92490" class="code"><code>reboot</code></pre><p id="d02831fc-7877-4e81-8d01-5f64b08681ea" class="">After device is rebooted, run Docker Install Script.</p><p id="e8c4e0ba-1e08-4713-9d6c-f7f6e5d1a6fe" class="">In this example it was running with root privilege, otherwise you might need to add sudo before each command.</p><pre id="2f151013-5854-495a-ac52-e9c428370957" class="code"><code>curl -sSL https://get.docker.com | sh</code></pre><p id="082331a4-d6fa-4e9c-a0c1-f490aed7b2fe" class="">Before proceed, check if Docker is up and running.</p><pre id="c68ce898-9a71-47d1-80dd-c1567f5d9267" class="code"><code>sudo docker ps</code></pre><p id="49537f1c-b648-498d-9cc9-673cf7dbb5bd" class="">If success, the terminal should return following information.</p><pre id="22ff8dce-3d81-4b39-9668-cbf39e0cbd6b" class="code"><code>CONTAINER ID   IMAGE     COMMAND   CREATED   STATUS    PORTS     NAMES</code></pre><p id="6adf2f8f-10bb-4d61-884a-1343547b69f9" class="">We can then proceed to install Docker-Compose </p><pre id="954ed215-e3f3-44aa-b725-a163a8c77e5b" class="code"><code>sudo apt-get install docker-compose</code></pre><p id="51dd28c5-b410-45b2-9076-5bae330b38b2" class="">
+</p><h1 id="91c71e27-03e4-4d86-9cba-f1bd41c4e091" class="">Step 4. Setup Working Directory and docker-compose Configuration</h1><p id="f418f499-fe68-4f85-90e7-bc565c0a29b2" class="">First create directory for octoprint.</p><pre id="64bfbbc6-5234-41c7-9033-59ab344eaf3c" class="code"><code>mkdir octoprint</code></pre><p id="612f019e-3cdc-4f49-be40-bb34157e471f" class="">Then, create a directory for the printer</p><pre id="1f7defdf-3112-4ddd-bad0-aefe3c5d9a44" class="code"><code>cd octoprint
+mkdir pathfinder
+cd pathfinder</code></pre><p id="fdbe5f9a-c883-4e65-8f87-098c3bb32a81" class="">It is advisable to get the path to this directory, using pwd command.</p><pre id="1233a911-1bb8-4359-9add-fffe3ed574bc" class="code"><code>pwd
+# pwd command will return with the path of the current working directory.
+# It should looks like:
+# root@pathfinder:~/octoprint/pathfinder#</code></pre><p id="3f66da46-8928-42d7-86b2-4c43a1d92952" class="">Return to octoprint directory</p><pre id="db201ec1-bdec-4bd8-8269-73dee05bd5db" class="code"><code>cd ..
+# &quot;cd ..&quot; command is to return to the parent directory</code></pre><p id="479d746a-1bb4-4a1b-92f4-4e07a4943755" class="">Before proceed to the next step, you need to identify the printer’s path. There are many method to achieve this, in this example, we use “dmesg” command to identify the printer.<div class="indented"><p id="c388413a-4646-474d-9974-0e2b49d6f12a" class="">First remove the USB Cable from the 3D-Printer</p><p id="c68139ad-3d3d-4a93-8227-6b58f22eb573" class="">Then run “dmesg”</p><pre id="ccbcd837-cba0-4b46-8f43-b803db501b03" class="code"><code>dmesg</code></pre><p id="12c5b53c-e020-456b-a23c-d37b963aca1b" class="">In the return messages, there should be one looks like:</p><pre id="12221344-06cb-4373-87fe-fbf69de1e789" class="code"><code>[ 2325.054125] usb 1-1.3: USB disconnect, device number 4</code></pre><p id="656f09e7-321b-4e7a-87c0-03058fb31a72" class="">Reconnect the USB to your printer</p><p id="220d40cf-bc7a-40c0-b262-957b4c9db3b3" class="">Then run “dmesg” again</p><pre id="76bdebb4-505c-4ae3-b6ee-44545508782b" class="code"><code>dmesg</code></pre><p id="0ddf7368-a40b-444a-842f-774faf73bb20" class="">In the return message, there should be one looks like:</p><pre id="8fb87398-d407-44e8-8eb4-fd74b389e889" class="code"><code>[ 2362.728387] usb 1-1.3: new full-speed USB device number 5 using dwc_otg
+[ 2362.861445] usb 1-1.3: New USB device found, idVendor=1eaf, idProduct=0004, bcdDevice= 2.00
+[ 2362.861469] usb 1-1.3: New USB device strings: Mfr=1, Product=2, SerialNumber=0
+[ 2362.861477] usb 1-1.3: Product: Maple
+[ 2362.861483] usb 1-1.3: Manufacturer: LeafLabs
+[ 2362.862721] cdc_acm 1-1.3:1.0: ttyACM0: USB ACM device
+</code></pre><p id="37a8e573-65aa-4725-b517-36c1ffdc1c2b" class="">Take note of the “ttyACM0”, this is the printer’s path, with this you can now proceed to the next step.</p></div></p><p id="a0c34366-24c6-44dc-b0ad-5f7758cfb5e7" class="">Create a docker-compose configuration file in /octopirnt directory</p><pre id="4eae59a2-43e5-4226-b60e-2bbdf2b49502" class="code"><code>nano docker-compose.yml</code></pre><pre id="cf16575e-6a92-4577-9feb-3e84a5724a8a" class="code"><code>version: &#x27;2.2&#x27;
+
+services:
+  octoprint_pathfinder:
+    restart: unless-stopped
+    image: octoprint/octoprint
+    ports:
+      - 4000:5000
+    devices:
+      - /dev/ttyACM0:/dev/ttyACM0
+    volumes:
+     - /root/octoprint/pathfinder:/home/octoprint</code></pre><p id="34977f66-d344-4213-9a6f-4f2938c230bd" class="">Save the file and proceed to next step.</p><h1 id="d82219fa-3907-46cd-9056-f029f0e8a43c" class="">Step 5. Use docker-compose to start the octoprint instance</h1><p id="ba5f500f-bf35-4fc2-b3a6-2fd83a6958df" class="">Run docker-compose up -d, the -d flag is to run the command detached, this will run it in the background and not hurting all the logging during the process.</p><pre id="e6e6d798-f038-4a27-b466-48e60ff12155" class="code"><code>docker-compose up -d</code></pre><p id="8a36117e-43cc-4b9a-a48c-d3faed1aa78a" class="">Get container id and then check logs if any failures has occur.</p><pre id="145411d1-5d27-4527-b782-81bf5878ba1b" class="code"><code>docker ps</code></pre><p id="3403da64-b5ba-4d06-b2cc-a4746cbdf2c3" class="">#docker logs &lt;containerid&gt;</p><pre id="1a149eac-430e-45ec-aa4a-d46ea257c358" class="code"><code>docker logs</code></pre><p id="4655b554-9df6-4588-ae80-3896c0fb2053" class="">Grant full permissions to printer directory</p><pre id="8369ce77-1fde-46c5-955d-42b29760e9b7" class="code"><code>chmod -R 777 pathfinder</code></pre><p id="07bf4910-9c30-4947-8b00-9b763056844e" class="">Restart the docker container</p><p id="2b4acea2-9067-476b-b6e9-8d1c9f96e473" class="">#docker restart &lt;containerid&gt;</p><pre id="3835bb7e-16d4-429a-a10a-e3b069d35b6d" class="code"><code>docker restart</code></pre><p id="b113b651-c089-4823-8512-8292d158f05a" class="">
+</p><p id="f2ee6b19-1c61-49b7-9adb-7afaebfc6e3f" class=""><strong>Misc</strong></p><p id="a69ad32c-b503-4715-b01e-df7a90958b32" class="">The control unit that was deployed at Northumbria University SmartDesignLab has a 2.2 inch display, a 6 keys keyboard, and an IR receiver/ transmitter, the following steps are for this setup only, ignore if it does not apply to you.</p><p id="a44e1c65-bcb5-4fbe-aba8-786833388e04" class="">
+</p><p id="601ba2cc-280a-4104-833a-239640715e4d" class="">Install Adafruit 2.2&quot; PiTFT HAT - 320x240 Display Install Python Script</p><pre id="412c297e-e3af-470a-ac76-17d81a957a9d" class="code"><code>cd ~
+sudo apt-get update
+sudo apt-get install -y git python3-pip
+sudo pip3 install --upgrade adafruit-python-shell click
+git clone https://github.com/adafruit/Raspberry-Pi-Installer-Scripts.git
+cd Raspberry-Pi-Installer-Scripts</code></pre><p id="cef39161-3a3b-4629-9235-8db941504cf7" class="">
+</p><p id="a48c4634-f130-41b6-931a-531084216ee4" class="">
+</p><p id="d2040a46-21b8-49db-9d84-39c655027804" class="">“Console Mode” Install Commands</p><pre id="a15a95a0-9f14-4b33-87a3-bc62b8a29d84" class="code"><code>sudo python3 adafruit-pitft.py --display=22 --rotation=270 --install-type=console</code></pre><p id="6c803690-4bae-4469-a608-9ebb0d4e9f55" class="">
+</p></div></article></body></html>
